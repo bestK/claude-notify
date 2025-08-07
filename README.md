@@ -28,31 +28,31 @@ npm install
 ### 2. View available hook types
 
 ```bash
-npx claude-notify-kit-kit list
+npx claude-notify-kit list
 ```
 
 ### 3. Interactive installation
 
 ```bash
-npx claude-notify-kit-kit install
+npx claude-notify-kit install
 ```
 
 ### 4. Command-line parameter installation
 
 ```bash
-npx claude-notify-kit-kit install --type UserPromptSubmit --title "My Claude" --message "Prompt sent!" --sound true --wait false --icon /path/to/icon.png --voicelink https://example.com/sound.mp3
+npx claude-notify-kit install --type UserPromptSubmit --title "My Claude" --message "Prompt sent!" --sound true --wait false --icon /path/to/icon.png --voicelink https://example.com/sound.mp3
 ```
 
 ### 5. Remove hooks
 
 ```bash
-npx claude-notify-kit-kit remove
+npx claude-notify-kit remove
 ```
 
 ### 6. Test hooks
 
 ```bash
-npx claude-notify-kit-kit notify --title "Test" --message "Test notification" --icon /path/to/icon.png --voicelink https://example.com/sound.mp3
+npx claude-notify-kit notify --title "Test" --message "Test notification" --icon /path/to/icon.png --voicelink https://example.com/sound.mp3
 ```
 
 ## Supported Hook Types
@@ -89,7 +89,7 @@ The hook configuration is now integrated into Claude Code's settings.json file l
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "npx claude-notify-kit-kit notify --title \"Claude Code\" --message \"Prompt submitted!\"",
+                        "command": "npx claude-notify-kit notify --title \"Claude Code\" --message \"Prompt submitted!\"",
                         "timeout": 10
                     }
                 ]
