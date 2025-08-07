@@ -26,27 +26,27 @@ npm install
 
 ### 2. 查看可用钩子类型
 ```bash
-npx claude-notify list
+npx claude-notify-kit list
 ```
 
 ### 3. 交互式安装
 ```bash
-npx claude-notify install
+npx claude-notify-kit install
 ```
 
 ### 4. 命令行参数安装
 ```bash
-npx claude-notify install --type UserPromptSubmit --title "My Claude" --message "Prompt sent!" --sound true --wait false --icon /path/to/icon.png --voicelink https://example.com/sound.mp3
+npx claude-notify-kit install --type UserPromptSubmit --title "My Claude" --message "Prompt sent!" --sound true --wait false --icon /path/to/icon.png --voicelink https://example.com/sound.mp3
 ```
 
 ### 5. 移除钩子
 ```bash
-npx claude-notify remove
+npx claude-notify-kit remove
 ```
 
 ### 6. 测试钩子
 ```bash
-npx claude-notify notify --title "Test" --message "Test notification" --icon /path/to/icon.png --voicelink https://example.com/sound.mp3
+npx claude-notify-kit notify --title "Test" --message "Test notification" --icon /path/to/icon.png --voicelink https://example.com/sound.mp3
 ```
 
 ## 支持的钩子类型
@@ -83,7 +83,7 @@ npx claude-notify notify --title "Test" --message "Test notification" --icon /pa
         "hooks": [
           {
             "type": "command",
-            "command": "npx claude-notify notify --title \"Claude Code\" --message \"Prompt submitted!\"",
+            "command": "npx claude-notify-kit notify --title \"Claude Code\" --message \"Prompt submitted!\"",
             "timeout": 10
           }
         ]

@@ -1,5 +1,5 @@
 {
-    "name": "claude-notify",
+    "name": "claude-notify-kit",
     "version": "0.0.2",
     "description": "Claude Code hooks installer with desktop notifications",
     "homepage": "https://github.com/bestk/claude-notify",
@@ -9,7 +9,7 @@
     "author": "bestk",
     "main": "index.js",
     "bin": {
-        "claude-notify": "./bin/cli.js"
+        "claude-notify-kit": "./bin/cli.js"
     },
     "scripts": {
         "start": "node bin/cli.js",

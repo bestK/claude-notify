@@ -7,7 +7,7 @@ const fs = require('fs-extra');
 const notifier = require('node-notifier');
 const readline = require('readline');
 
-program.name('claude-notify').description('Claude Code hooks installer with desktop notifications').version('1.0.0');
+program.name('claude-notify-kit').description('Claude Code hooks installer with desktop notifications').version('0.0.2');
 
 program
     .command('install')
@@ -453,7 +453,7 @@ async function addNewHook(settingsConfig, config, notifyCommand) {
 }
 
 function buildNotifyCommand(config) {
-    const commandParts = ['npx', 'claude-notify', 'notify'];
+    const commandParts = ['npx', 'claude-notify-kit', 'notify'];
 
     if (config.title) {
         commandParts.push(`--title "${config.title}"`);
