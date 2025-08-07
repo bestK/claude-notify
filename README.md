@@ -22,7 +22,7 @@ Claude Code hooks installer with desktop notification support.
 ### 1. Install dependencies
 
 ```bash
-npm install
+npm i -g claude-notify-kit
 ```
 
 ### 2. View available hook types
