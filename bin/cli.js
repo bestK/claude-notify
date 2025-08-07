@@ -6,8 +6,13 @@ const path = require('path');
 const fs = require('fs-extra');
 const notifier = require('node-notifier');
 const readline = require('readline');
+const sound = require('sound-play');
+const axios = require('axios');
+const os = require('os');
 
-program.name('claude-notify-kit').description('Claude Code hooks installer with desktop notifications').version('0.0.2');
+const { version, name, description } = require('../package.json');
+
+program.name(name).description(description).version(version);
 
 program
     .command('install')
@@ -503,16 +508,16 @@ async function showNotificationWithOptions(options) {
             }
         }
 
+        if (options.voicelink) {
+            playVoiceNotification(options.voicelink).catch(error => {
+                console.warn('Voice notification failed:', error.message);
+            });
+        }
+
         notifier.notify(notification, (err, response) => {
             if (err) {
                 console.warn('Notification failed:', err);
             }
-
-            // 如果有语音链接，播放语音
-            if (options.voicelink) {
-                playVoiceNotification(options.voicelink);
-            }
-
             resolve();
         });
     });
@@ -539,24 +544,53 @@ async function showNotification(title, message, isError = false) {
     });
 }
 
-function playVoiceNotification(voicelink) {
+async function playVoiceNotification(voicelink) {
     try {
-        // 简单的语音播放实现
+        // 使用 sound-play 包播放音频文件
         if (voicelink.startsWith('http')) {
-            // 如果是URL，使用系统默认播放器
-            const { spawn } = require('child_process');
-            const command =
-                process.platform === 'win32' ? 'start' : process.platform === 'darwin' ? 'open' : 'xdg-open';
-            spawn(command, [voicelink], { detached: true, stdio: 'ignore' });
+            // 如果是URL，先下载到临时文件，然后播放
+            const tempFilePath = await downloadAudioFile(voicelink);
+            if (tempFilePath) {
+                await sound.play(tempFilePath);
+                // 播放完成后删除临时文件
+                await fs.remove(tempFilePath).catch(() => {
+                    // 忽略删除错误
+                });
+            }
         } else if (fs.existsSync(voicelink)) {
-            // 如果是本地文件，使用系统默认播放器
-            const { spawn } = require('child_process');
-            const command =
-                process.platform === 'win32' ? 'start' : process.platform === 'darwin' ? 'open' : 'xdg-open';
-            spawn(command, [voicelink], { detached: true, stdio: 'ignore' });
+            // 如果是本地文件，使用 sound-play 包播放
+            await sound.play(voicelink);
         }
     } catch (error) {
         console.warn('Voice notification failed:', error.message);
+    }
+}
+
+async function downloadAudioFile(url) {
+    try {
+        const response = await axios({
+            method: 'GET',
+            url: url,
+            responseType: 'stream',
+            timeout: 30000, // 30秒超时
+        });
+
+        // 创建临时文件路径
+        const tempDir = os.tmpdir();
+        const fileName = `claude-notify-${Date.now()}${path.extname(url) || '.mp3'}`;
+        const tempFilePath = path.join(tempDir, fileName);
+
+        // 创建写入流
+        const writer = fs.createWriteStream(tempFilePath);
+        response.data.pipe(writer);
+
+        return new Promise((resolve, reject) => {
+            writer.on('finish', () => resolve(tempFilePath));
+            writer.on('error', reject);
+        });
+    } catch (error) {
+        console.warn('Failed to download audio file:', error.message);
+        return null;
     }
 }
 
