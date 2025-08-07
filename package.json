@@ -1,6 +1,6 @@
 {
     "name": "claude-notify",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Claude Code hooks installer with desktop notifications",
     "homepage": "https://github.com/bestk/claude-notify",
     "repository": "https://github.com/bestk/claude-notify",
