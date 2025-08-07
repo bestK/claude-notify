@@ -19,7 +19,7 @@ Claude Code 钩子安装工具，支持桌面通知功能。
 
 ## 安装使用
 
-### 1. 安装依赖
+### 1. 安装
 ```bash
 npm i -g claude-notify-kit
 ```

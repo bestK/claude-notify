@@ -19,7 +19,7 @@ Claude Code hooks installer with desktop notification support.
 
 ## Installation & Usage
 
-### 1. Install dependencies
+### 1. Install
 
 ```bash
 npm i -g claude-notify-kit
